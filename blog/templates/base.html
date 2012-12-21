@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb">
+  <head>
+    <title>Blog for potato</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <h1>Blog for potato</h1>
+    {% block content %}
+    {% endblock %}
+    {% if login_url %}
+    <p><a href="{{ login_url }}">Log in</a></p>
+    {% elif logout_url %}
+    <p>Logged in as {{ user_nickname }}. <a href="{{ logout_url }}">Log out</a></p>
+    {% endif %}
+  </body>
+</html>
+
