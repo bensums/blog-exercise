@@ -1,5 +1,3 @@
-from django.http import HttpResponse
-
 from google.appengine.api import users
 
 def appengine_users(request):

@@ -4,7 +4,6 @@ from blog import views
 
 urlpatterns = patterns(
     '',
-    #url(r'^$', views.HelloWorld.as_view(), {}, name='hello-world'),
     url(r'^$', views.BlogIndex.as_view(), {}, name='index'),
     url(r'^new/$', views.new_post, {}, name='new-post'),
     url(r'^(?P<blog_name>.+)/(?P<post_key_name>[a-zA-Z0-9-_]+)/edit/$',

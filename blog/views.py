@@ -40,7 +40,8 @@ def blog_key(blog_name=None):
 @db.transactional
 def insert_post_with_unique_key(post_dict):
     """
-    First we try to post the blog entry with key <author>-<slug of post title>.
+    First we try to add the blog post with key name equal to the slug of the
+    post's title.
     If this key is already taken we append a random two characters and repeat
     until a free key is generated. The blog post is then saved with this new
     key.
