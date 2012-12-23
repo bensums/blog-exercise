@@ -7,7 +7,7 @@ from django.template import RequestContext
 from django.template.defaultfilters import slugify
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseForbidden, \
-    HttpResponseRedirect
+    HttpResponseRedirect, HttpResponseServerError
 
 from blog.models import BlogPost
 
@@ -60,6 +60,23 @@ def insert_post_with_unique_key(post_dict):
     post = BlogPost(parent=parent_key, key_name=key_name, **post_dict)
     post.put()
     return post
+
+def delete_post(request, blog_name=None, post_key_name=None):
+    user = users.get_current_user()
+    if not user:
+        return HttpResponseForbidden()
+    if user.nickname() != blog_name:
+        return HttpResponseForbidden()
+    post = BlogPost.get_by_key_name(post_key_name,
+                                    parent=db.Key.from_path('Blog', blog_name))
+    if not post:
+        return HttpResponse404()
+    try:
+        post.delete()
+    except Exception, e:
+        return HttpResponseServerError()
+    return HttpResponseRedirect(reverse('index'))
+
 
 def edit_post(request, blog_name=None, post_key_name=None):
     user = users.get_current_user()

@@ -7,6 +7,7 @@
 	<li><a href="{% url index %}">Back to latest blog posts</a></li>
 	{% ifequal post.author user_nickname %}
 	<li><a href="{% url edit-post blog_name=post.author post_key_name=post.key.name %}">Edit post</a></li>
+	<li><a href="{% url delete-post blog_name=post.author post_key_name=post.key.name %}">Delete post</a></li>
 	{% endifequal %}
 </ul>
 {% endblock %}
