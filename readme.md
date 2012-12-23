@@ -1,4 +1,4 @@
-Simple blog written for potato. Uses djappengine.
+Simple blog written for potato. Uses djappengine: <https://github.com/potatolondon/djappengine>.
 
 Run development server with
 
@@ -6,6 +6,6 @@ Run development server with
 
 View at <http://localhost:8080>.
 
-Deploy:
+To deploy, first change application name in `app.yaml` to an app you are a developer for. Then run
 
     appcfg.py update .
