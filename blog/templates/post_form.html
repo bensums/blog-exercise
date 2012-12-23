@@ -10,6 +10,9 @@
 	<p class="errors">{{ errors }}</p>
 	{% endif %}
 	{% csrf_token %}
+	{% if post.key.name %}
+	<input type="hidden" name="slug" value="{{ post.key.name }}" />
+	{% endif %}
 	<label for="title">Title:</label>
 	<input type="text" name="title" value="{{ post.title }}" />
 	<label for="content">Content:</label>

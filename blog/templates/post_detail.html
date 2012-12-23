@@ -3,5 +3,10 @@
 <h2>{{ post.title }}</h2>
 <h3>Posted by <strong>{{ post.author }}</strong> on {{ post.date }}</h3>
 {{ post.content|linebreaks|urlize }}
-<p><a href="{% url index %}">Back to latest blog posts</a></p>
+<ul>
+	<li><a href="{% url index %}">Back to latest blog posts</a></li>
+	{% ifequal post.author user_nickname %}
+	<li><a href="{% url edit-post blog_name=post.author post_key_name=post.key.name %}">Edit post</a></li>
+	{% endifequal %}
+</ul>
 {% endblock %}

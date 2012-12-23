@@ -5,6 +5,7 @@ from django.conf import settings
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template.defaultfilters import slugify
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseForbidden, \
     HttpResponseRedirect
 
@@ -60,6 +61,19 @@ def insert_post_with_unique_key(post_dict):
     post.put()
     return post
 
+def edit_post(request, blog_name=None, post_key_name=None):
+    user = users.get_current_user()
+    if not user:
+        return HttpResponseForbidden()
+    if user.nickname() != blog_name:
+        return HttpResponseForbidden()
+    post = BlogPost.get_by_key_name(post_key_name,
+                                    parent=db.Key.from_path('Blog', blog_name))
+    if not post:
+        return HttpResponse404()
+    return render_to_response('post_form.html', {'post': post},
+                              RequestContext(request))
+
 def new_post(request):
     if request.method == 'POST':
         user = users.get_current_user()
@@ -70,16 +84,34 @@ def new_post(request):
             'author': user.nickname(),
             'content': request.POST['content'] or '(no content)'
         }
-        try:
-            insert_post_with_unique_key(post_dict)
-            return HttpResponseRedirect('/')
-        # This is probably a bad idea because the exception could reveal
-        # sensitive information to the user.
-        except Exception, e:
-            context = {
-                'post': post_dict,
-                'errors': e
-            }
+        if 'slug' in request.POST:
+            # A slug has been supplied. Under normal circumstances, this means
+            # the user is on the edit page and wants to update an existing post.
+            # We don't make any checks to ensure this is the case.
+            try:
+                BlogPost(key_name=request.POST['slug'],
+                         parent=blog_key(post_dict['author']),
+                         **post_dict).put()
+                return HttpResponseRedirect(reverse('post_detail', kwargs={
+                    'blog_name': post_dict['author'],
+                    'post_key_name': request.POST['slug']
+                }))
+            except Exception, e:
+                context = {
+                    'post': post_dict,
+                    'errors': e
+                }
+        else:
+            try:
+                insert_post_with_unique_key(post_dict)
+                return HttpResponseRedirect('/')
+            # This is probably a bad idea because the exception could reveal
+            # sensitive information to the user.
+            except Exception, e:
+                context = {
+                    'post': post_dict,
+                    'errors': e
+                }
     else:
         context = {}
     return render_to_response('post_form.html', context, RequestContext(request))
