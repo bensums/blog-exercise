@@ -1,11 +1,13 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb">
   <head>
     <title>Blog for potato</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
   </head>
   <body>
-    <h1>Blog for potato</h1>
+	  <h1><a href="{% url index %}">Blog for potato</a></h1>
     {% block content %}
     {% endblock %}
     {% if login_url %}

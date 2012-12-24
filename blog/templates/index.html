@@ -4,7 +4,7 @@
 {% for post in posts %}
 <div class="post">
 	<h2><a href="{% url post_detail blog_name=post.author post_key_name=post.key.name %}">{{ post.title }}</a></h2>
-    <h3>Posted by <strong>{{ post.author }}</strong> on {{ post.date }}</h3>
+	<h3>Posted by <span class="author">{{ post.author }}</span> on <span class="date">{{ post.date }}</span></h3>
     {{ post.content|truncatewords_html:50|truncatechars:500|linebreaks|urlize }}
     {% ifequal post.author user_nickname %}
     <p><a href="{% url delete-post blog_name=post.author post_key_name=post.key.name %}">Delete post</a></p>
