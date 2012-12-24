@@ -14,9 +14,9 @@
 	<input type="hidden" name="slug" value="{{ post.key.name }}" />
 	{% endif %}
 	<label for="title">Title:</label>
-	<input type="text" name="title" value="{{ post.title }}" />
+	<input type="text" name="title" value="{{ post.title }}" size="80"/>
 	<label for="content">Content:</label>
-	<textarea name="content" rows="10" cols="60">{{ post.content }}</textarea>
+	<textarea name="content" rows="20" cols="80">{{ post.content }}</textarea>
 	<input type="submit" value="Submit" />
 </form>
 {% endblock %}

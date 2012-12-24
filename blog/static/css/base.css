@@ -1,6 +1,6 @@
 body {
 	background: #b4cfed;
-	width: 600px;
+	width: 700px;
 	margin: 0 auto;
 	font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
 }
@@ -40,6 +40,7 @@ input, textarea {
 	padding: 5px;
 	background: #e5f1ff;
 	margin-top: 5px;
+	font-family: 'droid sans mono', monospace, 'andale mono';
 }
 
 input:hover, textarea:hover {
