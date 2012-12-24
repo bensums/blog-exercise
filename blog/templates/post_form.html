@@ -19,4 +19,9 @@
 	<textarea name="content" rows="20" cols="80">{{ post.content }}</textarea>
 	<input type="submit" value="Submit" />
 </form>
+{% if post.key.name %}
+<p><a href="{% url post_detail blog_name=post.author post_key_name=post.key.name %}">Discard changes</a></p>
+{% else %}
+<p><a href="{% url index %}">Cancel</a></p>
+{% endif %}
 {% endblock %}
