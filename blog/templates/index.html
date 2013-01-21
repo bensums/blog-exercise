@@ -10,8 +10,8 @@
 	    <li><a href="{% url post_detail blog_name=post.author post_key_name=post.key.name %}">Read full article</a></li>
     {% ifequal post.author user_nickname %}
 	    <li><a href="{% url delete-post blog_name=post.author post_key_name=post.key.name %}">Delete post</a></li>
-    </ul>
     {% endifequal %}
+    </ul>
 </div>
 {% endfor %}
 {% else %}
